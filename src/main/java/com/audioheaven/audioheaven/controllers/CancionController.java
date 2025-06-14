@@ -1,5 +1,6 @@
 package com.audioheaven.audioheaven.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.audioheaven.audioheaven.models.Cancion;
@@ -72,4 +74,12 @@ public class CancionController {
         cancionRepository.deleteAll();
         return ResponseEntity.ok("Todas las canciones han sido borradas.");
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Cancion>> buscarCanciones(@RequestParam String termino) {
+        List<Cancion> resultados = cancionRepository
+                .findByNombreContainingIgnoreCaseOrAutorContainingIgnoreCase(termino, termino);
+        return ResponseEntity.ok(resultados);
+    }
+
 }
