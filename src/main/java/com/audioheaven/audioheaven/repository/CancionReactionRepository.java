@@ -20,4 +20,5 @@ public interface CancionReactionRepository extends JpaRepository<CancionReaction
     List<Object[]> findMostVotedReactionByCancionId(@Param("cancionId") Long cancionId);
 
     void deleteByCancionId(Long cancionId);
+
 }
